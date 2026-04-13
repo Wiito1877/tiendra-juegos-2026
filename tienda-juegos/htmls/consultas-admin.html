@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Gestionar Consultas | Admin</title>
+    <style>
+        .consultas-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .consultas-tabla-wrap {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: auto;
+            background: rgba(15, 15, 35, 0.42);
+        }
+
+        .consultas-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        .consultas-tabla th,
+        .consultas-tabla td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .consultas-tabla th {
+            color: var(--accent);
+            font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .consulta-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .consulta-badge.pendiente {
+            color: #ffd166;
+            border-color: #ffd166;
+            background: rgba(255, 209, 102, 0.15);
+        }
+
+        .consulta-badge.respondida {
+            color: #00d4ff;
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.15);
+        }
+
+        .detalle-consulta {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px;
+            background: rgba(15, 15, 35, 0.42);
+        }
+
+        .detalle-consulta h3 {
+            margin-top: 0;
+        }
+
+        .detalle-linea {
+            margin: 0.3rem 0;
+        }
+
+        .detalle-mensaje {
+            white-space: pre-wrap;
+        }
+
+        .respuestas-lista {
+            display: grid;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .respuesta-item {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .detalle-vacio {
+            color: var(--soft);
+            font-style: italic;
+        }
+
+        @media (max-width: 980px) {
+            .consultas-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="admin-theme">
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Gestion de Consultas</h1>
+        <div>
+            <p>Revisa consultas enviadas desde el formulario de contacto</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="admin-catalogo.html">Agregar Productos</a></li>
+            <li><a href="gestion-juegos.html">Gestionar Catalogo</a></li>
+            <li><a href="usuarios.html">Gestionar Usuarios</a></li>
+            <li><a href="reportes-ventas.html">Reportes Ventas</a></li>
+            <li><a href="gestion-ventas.html">Gestionar Ventas</a></li>
+            <li><a href="consultas-admin.html" class="active" aria-current="page">Gestionar Consultas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>Consultas recibidas</h2>
+            <p id="consultas-vacio" class="nota">No hay consultas registradas.</p>
+            <div class="consultas-layout">
+                <div class="consultas-tabla-wrap">
+                    <table class="consultas-tabla" aria-label="Listado de consultas">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Fecha</th>
+                                <th>Nombre</th>
+                                <th>Motivo</th>
+                                <th>Estado</th>
+                                <th>Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody id="consultas-tbody"></tbody>
+                    </table>
+                </div>
+
+                <section id="consulta-detalle" class="detalle-consulta">
+                    <p class="detalle-vacio">Selecciona una consulta para ver su detalle.</p>
+                </section>
+            </div>
+            <button id="btn-logout-consultas" class="btn-eliminar" type="button">Cerrar sesion admin</button>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/consultas-admin.js"></script>
+</body>
+</html>

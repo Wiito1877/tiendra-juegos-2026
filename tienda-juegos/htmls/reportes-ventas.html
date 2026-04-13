@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Reportes de Ventas | Admin</title>
+    <style>
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .kpi-card {
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(15, 15, 35, 0.95), rgba(26, 26, 46, 0.95));
+            padding: 12px;
+        }
+
+        .filtros-kpi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: end;
+        }
+
+        .filtros-kpi label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--soft);
+            margin-bottom: 4px;
+        }
+
+        .filtros-kpi select,
+        .filtros-kpi input {
+            width: 100%;
+            padding: 9px;
+            background: rgba(30, 30, 50, 0.6);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .filtros-kpi button {
+            min-height: 42px;
+            margin-top: 0;
+        }
+
+        #filtro-resumen {
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
+
+        .kpi-titulo {
+            font-size: 0.9rem;
+            color: var(--soft);
+            margin: 0 0 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-valor {
+            font-size: 1.35rem;
+            color: var(--accent);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .ventas-tabla-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: rgba(15, 15, 35, 0.45);
+        }
+
+        .ventas-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .ventas-tabla thead th {
+            text-align: left;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border-bottom: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        .ventas-tabla tbody td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.88rem;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .ventas-tabla tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ventas-tabla .total-col {
+            color: #ffb300;
+            font-weight: 700;
+        }
+
+        .ranking-lista {
+            margin: 0;
+            padding-left: 18px;
+        }
+    </style>
+</head>
+<body class="admin-theme">
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Reportes de Ventas</h1>
+        <div>
+            <p>Solo administradores pueden ver KPI y detalle de ventas</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="admin-catalogo.html">Agregar Productos</a></li>
+            <li><a href="gestion-juegos.html">Gestionar Catalogo</a></li>
+            <li><a href="usuarios.html">Gestionar Usuarios</a></li>
+            <li><a href="reportes-ventas.html" class="active" aria-current="page">Reportes Ventas</a></li>
+            <li><a href="gestion-ventas.html">Gestionar Ventas</a></li>
+            <li><a href="consultas-admin.html">Gestionar Consultas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>KPIs Automaticos</h2>
+            <div class="filtros-kpi">
+                <div>
+                    <label for="filtro-periodo">Periodo</label>
+                    <select id="filtro-periodo">
+                        <option value="todo" selected>Todo</option>
+                        <option value="hoy">Hoy</option>
+                        <option value="semana">Ultimos 7 dias</option>
+                        <option value="mes">Ultimos 30 dias</option>
+                        <option value="personalizado">Personalizado</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filtro-fecha-desde">Desde</label>
+                    <input id="filtro-fecha-desde" type="date" disabled />
+                </div>
+                <div>
+                    <label for="filtro-fecha-hasta">Hasta</label>
+                    <input id="filtro-fecha-hasta" type="date" disabled />
+                </div>
+                <button id="btn-aplicar-periodo" class="btn-inacap" type="button">Aplicar filtro</button>
+            </div>
+            <p id="filtro-resumen" class="nota">Mostrando datos de: Todo</p>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <p class="kpi-titulo">Ventas Totales</p>
+                    <p id="kpi-ventas-totales" class="kpi-valor">0</p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-titulo">Monto Total Vendido</p>
+                    <p id="kpi-monto-total" class="kpi-valor">$0</p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-titulo">Mejor Vendedor</p>
+                    <p id="kpi-mejor-vendedor" class="kpi-valor">-</p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-titulo">Producto Mas Vendido</p>
+                    <p id="kpi-top-producto" class="kpi-valor">-</p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <h2>Top Productos Vendidos</h2>
+            <ol id="ranking-productos" class="ranking-lista"></ol>
+            <p id="ranking-vacio" class="nota">Aun no hay ventas registradas.</p>
+        </article>
+
+        <article>
+            <h2>Graficos de Ventas</h2>
+            <div class="charts-grid">
+                <section class="chart-card">
+                    <h3>Ventas por vendedor (monto)</h3>
+                    <div id="chart-vendedores" class="bar-chart"></div>
+                </section>
+                <section class="chart-card">
+                    <h3>Top productos (unidades)</h3>
+                    <div id="chart-productos" class="bar-chart"></div>
+                </section>
+            </div>
+            <p id="charts-vacio" class="nota">No hay datos suficientes para mostrar graficos.</p>
+        </article>
+
+        <article>
+            <h2>Detalle de Ventas</h2>
+            <p id="ventas-vacio" class="nota">No hay ventas finalizadas.</p>
+            <div id="ventas-tabla-wrap" class="ventas-tabla-wrap">
+                <table class="ventas-tabla" aria-label="Resumen de ventas">
+                    <thead>
+                        <tr>
+                            <th>Venta</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Vendedor</th>
+                            <th>Productos</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ventas-tbody"></tbody>
+                </table>
+            </div>
+            <button id="btn-logout-reportes" class="btn-eliminar" type="button">Cerrar sesion admin</button>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/reportes-ventas.js"></script>
+</body>
+</html>

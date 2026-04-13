@@ -1,0 +1,14 @@
+/* Selectores */
+
+/* Selector Universal */
+/** {border: thin dashed grey;}
+* {margin: 0px; padding: 0px;} */
+
+/* Selector Etiqueta */
+strong {color:red;}
+body {font-family: Calibri ;}
+
+/* Selector Múltiple */
+h1,h2,h3 {border: thin dashed chocolate;
+    background-color: beige;
+    text-shadow: 4px 4px 4px grey;}

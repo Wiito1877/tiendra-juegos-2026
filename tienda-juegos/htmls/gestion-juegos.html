@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Gestión de Catálogo | Tienda</title>
+</head>
+<body class="admin-theme">
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Gestión de Catálogo</h1>
+        <div>
+            <p>Agregar y eliminar juegos del catálogo</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="admin-catalogo.html">Agregar Productos</a></li>
+            <li><a href="gestion-juegos.html" class="active" aria-current="page">Gestionar Catalogo</a></li>
+            <li><a href="usuarios.html">Gestionar Usuarios</a></li>
+            <li><a href="reportes-ventas.html">Reportes de Ventas</a></li>
+            <li><a href="gestion-ventas.html">Gestionar Ventas</a></li>
+            <li><a href="consultas-admin.html">Gestionar Consultas</a></li>
+        </ul>
+    </nav>
+
+    <main class="admin-manage-main">
+        <article class="admin-manage-actions">
+            <h2>Agregar juego al catálogo</h2>
+            <form id="form-agregar-juego" class="formulario-contacto tienda-form">
+                <fieldset>
+                    <legend>Nuevo juego</legend>
+                    <label for="agregar-nombre">Nombre del juego:</label>
+                    <input id="agregar-nombre" name="nombre" type="text" placeholder="Ej: Starfield" required />
+
+                    <label>Disponible en:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agregar-plataformas" value="PC" />
+                            PC
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="agregar-plataformas" value="PS4-PS5" />
+                            PS4-PS5
+                        </label>
+                    </div>
+                </fieldset>
+                <input type="submit" value="Agregar juego" />
+            </form>
+            <div class="admin-manage-links">
+                <a href="admin-catalogo.html" class="admin-link btn-gestion">Volver a Panel Admin</a>
+                <a href="usuarios.html" class="admin-link btn-gestion">Gestionar Usuarios</a>
+                <a href="reportes-ventas.html" class="admin-link btn-gestion">Reportes de Ventas</a>
+                <a href="gestion-ventas.html" class="admin-link btn-gestion">Gestionar Ventas</a>
+                <a href="consultas-admin.html" class="admin-link btn-gestion">Gestionar Consultas</a>
+            </div>
+            <div class="admin-manage-logout">
+                <button id="btn-logout-gestion" class="btn-eliminar" type="button">Cerrar sesion admin</button>
+            </div>
+        </article>
+
+        <article class="admin-manage-content">
+            <h2>Catálogo de juegos</h2>
+            <div id="msg-vacio" class="nota">No hay juegos en el catálogo.</div>
+            <div id="lista-juegos" class="juegos-grid"></div>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/catalogo-juegos.js"></script>
+    <script src="../js/gestion-juegos.js"></script>
+</body>
+</html>
+
