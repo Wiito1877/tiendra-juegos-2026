@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Tienda | Juegos Recientes</title>
+</head>
+<body>
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Juegos de Consola Recientes</h1>
+        <div>
+            <p>Tienda de juegos</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="carrito-venta.html">Carrito de Venta</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="pc.html">PC</a></li>
+            <li><a href="ps4-ps5.html">PS4-PS5</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>Acceso Vendedor</h2>
+            <p class="nota">Si eres vendedor, accede al carrito de venta para gestionar ventas.</p>
+            <a href="carrito-venta.html" class="btn-primary-link">Ir a Carrito de Venta</a>
+        </article>
+
+        <article>
+            <h2>Acceso administrador</h2>
+            <p class="nota">Solo el administrador puede entrar al panel y cargar productos al catalogo.</p>
+            <form id="form-login-admin" class="formulario-contacto tienda-form">
+                <fieldset>
+                    <legend>Login admin</legend>
+                    <label for="admin-user">Usuario:</label>
+                    <input id="admin-user" name="usuario" type="text" placeholder="admin" required />
+
+                    <label for="admin-pass">Contrasena:</label>
+                    <input id="admin-pass" name="clave" type="password" placeholder="********" required />
+                </fieldset>
+                <input type="submit" value="Ingresar como administrador" />
+            </form>
+            <p id="estado-admin" class="estado-admin">Estado: no autenticado</p>
+            <p class="nota">Al autenticarte se abrira el panel de administracion.</p>
+            <a id="link-panel-admin" class="admin-link hidden" href="admin-catalogo.html">Ir al panel ahora</a>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/tienda.js"></script>
+        <script src="../js/ventas.js"></script>
+</body>
+</html>
+

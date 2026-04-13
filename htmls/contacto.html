@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Contacto</title>
+</head>
+<body>
+    <header>
+        <a href="tienda.html" class="tienda-mini">Administrador</a>
+        <h1>Juegos de Consola Recientes</h1>
+        <div>
+            <p>Formulario de contacto</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="carrito-venta.html">Carrito de Venta</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="pc.html">PC</a></li>
+            <li><a href="ps4-ps5.html">PS4-PS5</a></li>
+            <li><a href="contacto.html" class="active" aria-current="page">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>Formulario de Contacto</h2>
+            <p class="nota">Escribenos y te respondemos en menos de 24 horas habiles.</p>
+
+            <div class="contacto-layout">
+                <form id="contacto-form" action="#" method="post" class="formulario-contacto contacto-form-modern" novalidate>
+                    <fieldset>
+                        <legend>Datos de contacto</legend>
+
+                        <label for="contacto-nombre">Nombre completo:</label>
+                        <input id="contacto-nombre" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required minlength="2" />
+
+                        <label for="contacto-email">Email:</label>
+                        <input id="contacto-email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required />
+
+                        <label for="contacto-telefono">Telefono (opcional):</label>
+                        <input id="contacto-telefono" name="telefono" type="tel" autocomplete="tel" placeholder="+56 9 1234 5678" pattern="[0-9+ ]{8,18}" />
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Tu mensaje</legend>
+
+                        <label for="contacto-motivo">Motivo:</label>
+                        <select id="contacto-motivo" name="motivo" required>
+                            <option value="">Selecciona motivo</option>
+                            <option value="soporte">Soporte tecnico</option>
+                            <option value="compra">Compra y disponibilidad</option>
+                            <option value="facturacion">Facturacion</option>
+                            <option value="alianza">Alianza comercial</option>
+                            <option value="otro">Otro</option>
+                        </select>
+
+                        <label for="contacto-mensaje">Mensaje:</label>
+                        <textarea id="contacto-mensaje" name="mensaje" rows="5" maxlength="1000" placeholder="Escribe tu consulta aqui..." required minlength="15"></textarea>
+
+                        <label>Preferencia de respuesta:</label>
+                        <div class="contacto-opciones">
+                            <label><input type="radio" name="preferencia" value="email" required /> Email</label>
+                            <label><input type="radio" name="preferencia" value="telefono" /> Telefono</label>
+                            <label><input type="radio" name="preferencia" value="whatsapp" /> WhatsApp</label>
+                        </div>
+
+                        <label class="contacto-consentimiento">
+                            <input type="checkbox" name="consentimiento" required />
+                            Acepto que mis datos se usen para responder esta consulta.
+                        </label>
+                    </fieldset>
+
+                    <div class="contacto-actions">
+                        <input type="submit" value="Enviar consulta" />
+                        <button type="reset" class="btn-eliminar">Limpiar</button>
+                    </div>
+
+                    <p id="contacto-feedback" class="nota" aria-live="polite"></p>
+                </form>
+
+                <aside class="contacto-info">
+                    <h3>Canales directos</h3>
+                    <p><strong>Email:</strong> soporte@juegos2026.cl</p>
+                    <p><strong>Telefono:</strong> +56 2 2456 8890</p>
+                    <p><strong>Horario:</strong> Lun a Vie 09:00 - 18:30</p>
+                    <p class="nota">Para consultas de ventas mayoristas, incluye empresa y region para respuesta prioritaria.</p>
+                </aside>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+    <script src="../js/global-session.js"></script>
+    <script src="../js/contacto.js"></script>
+    <script src="../js/ventas.js"></script>
+</body>
+</html>
+

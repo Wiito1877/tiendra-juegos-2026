@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Gestion de Usuarios | Tienda</title>
+</head>
+<body class="admin-theme">
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Gestion de Usuarios</h1>
+        <div>
+            <p>Solo administradores pueden crear cuentas y privilegios</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="admin-catalogo.html">Agregar Productos</a></li>
+            <li><a href="gestion-juegos.html">Gestionar Catalogo</a></li>
+            <li><a href="usuarios.html" class="active" aria-current="page">Gestionar Usuarios</a></li>
+            <li><a href="reportes-ventas.html">Reportes de Ventas</a></li>
+            <li><a href="gestion-ventas.html">Gestionar Ventas</a></li>
+            <li><a href="consultas-admin.html">Gestionar Consultas</a></li>
+        </ul>
+    </nav>
+
+    <main class="admin-manage-main">
+        <article class="admin-manage-actions">
+            <h2>Crear usuario</h2>
+            <form id="form-usuario" class="formulario-contacto tienda-form">
+                <fieldset>
+                    <legend>Nuevo usuario</legend>
+
+                    <label for="usuario-nombre">Usuario:</label>
+                    <input id="usuario-nombre" name="usuario" type="text" placeholder="Ej: operador1" required />
+
+                    <label for="usuario-clave">Clave:</label>
+                    <input id="usuario-clave" name="clave" type="password" placeholder="Clave de acceso" required />
+
+                    <label for="usuario-rol">Rol / privilegio:</label>
+                    <select id="usuario-rol" name="rol" required>
+                        <option value="">Selecciona rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Editor de Catalogo">Editor de Catalogo</option>
+                        <option value="Ventas">Ventas</option>
+                        <option value="Soporte">Soporte</option>
+                        <option value="Lectura">Lectura</option>
+                    </select>
+                </fieldset>
+                <input type="submit" value="Guardar usuario" />
+            </form>
+            <div class="admin-manage-links">
+                <a href="admin-catalogo.html" class="admin-link btn-gestion">Volver a Panel Admin</a>
+                <a href="reportes-ventas.html" class="admin-link btn-gestion">Reportes de Ventas</a>
+                <a href="gestion-ventas.html" class="admin-link btn-gestion">Gestionar Ventas</a>
+                <a href="consultas-admin.html" class="admin-link btn-gestion">Gestionar Consultas</a>
+            </div>
+            <div class="admin-manage-logout">
+                <button id="btn-logout-usuarios" class="btn-eliminar" type="button">Cerrar sesion admin</button>
+            </div>
+        </article>
+
+        <article class="admin-manage-content">
+            <h2>Usuarios registrados</h2>
+            <p id="usuarios-vacio" class="nota">Aun no hay usuarios creados.</p>
+            <div id="usuarios-lista" class="usuarios-grid"></div>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/usuarios.js"></script>
+</body>
+</html>
+

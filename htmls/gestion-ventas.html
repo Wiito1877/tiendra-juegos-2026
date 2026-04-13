@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Gestion de Ventas | Tienda</title>
+</head>
+<body class="admin-theme">
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Gestion de Ventas</h1>
+        <div>
+            <p>Modificar y eliminar ventas registradas</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="admin-catalogo.html">Agregar Productos</a></li>
+            <li><a href="gestion-juegos.html">Gestionar Catalogo</a></li>
+            <li><a href="usuarios.html">Gestionar Usuarios</a></li>
+            <li><a href="reportes-ventas.html">Reportes Ventas</a></li>
+            <li><a href="gestion-ventas.html" class="active" aria-current="page">Gestionar Ventas</a></li>
+            <li><a href="consultas-admin.html">Gestionar Consultas</a></li>
+        </ul>
+    </nav>
+
+    <main class="admin-manage-main ventas-admin-main">
+        <article class="admin-manage-actions">
+            <h2>Ventas registradas</h2>
+            <p class="nota">Filtra ventas, revisa el resumen y edita productos con una vista mas ordenada.</p>
+
+            <div class="ventas-admin-toolbar">
+                <input id="ventas-admin-busqueda" type="search" placeholder="Buscar por cliente, vendedor, N° venta o producto" />
+                <select id="ventas-admin-filtro-vendedor">
+                    <option value="">Todos los vendedores</option>
+                </select>
+                <select id="ventas-admin-orden">
+                    <option value="fecha_desc">Mas recientes</option>
+                    <option value="fecha_asc">Mas antiguas</option>
+                    <option value="total_desc">Mayor total</option>
+                    <option value="total_asc">Menor total</option>
+                </select>
+                <button id="btn-ventas-admin-limpiar" type="button" class="btn-inacap">Limpiar filtros</button>
+            </div>
+
+            <p id="ventas-admin-resumen" class="nota">Ventas: 0 | Total: $0 CLP</p>
+        </article>
+
+        <article class="admin-manage-content">
+            <p id="ventas-admin-vacio" class="nota">No hay ventas para gestionar.</p>
+            <div id="ventas-admin-lista" class="tienda-grid ventas-admin-grid"></div>
+        </article>
+
+        <article class="admin-manage-logout">
+            <button id="btn-logout-gestion-ventas" class="btn-eliminar" type="button">Cerrar sesion admin</button>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/gestion-ventas.js"></script>
+</body>
+</html>

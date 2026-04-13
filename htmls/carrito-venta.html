@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Carrito de Venta | Juegos Recientes</title>
+    <style>
+        #carrito-main.ventas-layout {
+            display: grid;
+            grid-template-columns: minmax(420px, 1.45fr) minmax(340px, 1fr);
+            gap: 14px;
+            align-items: start;
+        }
+
+        #carrito-main.ventas-layout article {
+            height: fit-content;
+        }
+
+        #carrito-main.ventas-layout .panel-carrito {
+            position: sticky;
+            top: 90px;
+        }
+
+        .selector-ventas-main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .selector-ventas-main select {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-2);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .selector-ventas-main .btn-editar,
+        .selector-ventas-main .btn-inacap {
+            margin-top: 0;
+            min-height: 44px;
+            min-width: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 980px) {
+            #carrito-main.ventas-layout {
+                grid-template-columns: 1fr;
+            }
+
+            #carrito-main.ventas-layout .panel-carrito {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="tienda.html" class="tienda-mini">Administrador</a>
+        <h1>Juegos de Consola Recientes</h1>
+        <div>
+            <p>Carrito de venta y gestión de ventas</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="carrito-venta.html" class="active" aria-current="page">Carrito de Venta</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="pc.html">PC</a></li>
+            <li><a href="ps4-ps5.html">PS4-PS5</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main id="carrito-main" class="ventas-layout" style="display: none;">
+        <article class="panel-catalogo">
+            <h2>Catálogo de productos</h2>
+            <p id="home-catalogo-vacio" class="nota">El catálogo está vacío. El administrador debe agregar productos desde Administrador.</p>
+            <div id="home-catalogo" class="tienda-grid"></div>
+        </article>
+
+        <article class="panel-carrito">
+            <h2>Carrito de compras</h2>
+            <div class="selector-ventas-main">
+                <select id="select-venta-main"></select>
+            </div>
+            <p id="home-carrito-vacio" class="nota">Tu carrito está vacío.</p>
+            <div id="home-carrito-lista" class="carrito-lista"></div>
+            <div class="descuento-box">
+                <h3>Descuento administrador</h3>
+                <p id="descuento-estado" class="nota">Si aplicas descuento mayor a 0%, debes validar con usuario admin.</p>
+                <p id="descuento-toast" class="descuento-toast" aria-live="polite"></p>
+                <div class="descuento-aplicar-grid">
+                    <input id="descuento-porcentaje" type="number" min="0" max="100" step="1" placeholder="% descuento" />
+                    <button id="btn-aplicar-descuento" type="button" class="btn-inacap">Aplicar descuento</button>
+                    <button id="btn-limpiar-descuento" type="button" class="btn-eliminar">Quitar descuento</button>
+                </div>
+            </div>
+            <p id="home-carrito-subtotal" class="total-tienda">Subtotal: $0 CLP</p>
+            <p id="home-carrito-descuento" class="total-tienda">Descuento: $0 CLP (0%)</p>
+            <p id="home-carrito-total" class="total-tienda">Total carrito: $0 CLP</p>
+            <div class="action-row">
+                <button id="btn-finalizar-venta-main" type="button" class="btn-inacap">Finalizar venta</button>
+            </div>
+        </article>
+    </main>
+
+    <div id="modal-descuento" class="modal-descuento" aria-hidden="true">
+        <div class="modal-descuento-content">
+            <h3>Autenticación de administrador</h3>
+            <p>Para aplicar descuento, valida con tu usuario admin.</p>
+            <input id="modal-admin-user" type="text" placeholder="Usuario admin" />
+            <input id="modal-admin-pass" type="password" placeholder="Clave admin" />
+            <p id="modal-descuento-error" class="modal-error"></p>
+            <div class="modal-actions">
+                <button id="btn-modal-autenticar" type="button" class="btn-editar">Autenticar</button>
+                <button id="btn-modal-cancelar" type="button" class="btn-eliminar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/catalogo-juegos.js"></script>
+    <script src="../js/ventas.js"></script>
+    <script>
+        const AUTH_VENDEDOR_KEY_PAGE = "tienda_vendedor_auth";
+        let homeScriptCargado = false;
+
+        function esVendedorAutenticado() {
+            const auth = localStorage.getItem(AUTH_VENDEDOR_KEY_PAGE);
+            if (!auth) return false;
+
+            try {
+                const usuario = JSON.parse(auth);
+                if (!usuario || !usuario.usuario) {
+                    return false;
+                }
+
+                const rolNormalizado = String(usuario.rol || "").toLowerCase();
+                return usuario.esVentas === true || rolNormalizado === "ventas";
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function cargarHomeScriptSiHaceFalta() {
+            if (homeScriptCargado) return;
+
+            const script = document.createElement('script');
+            script.src = '../js/home.js';
+            document.body.appendChild(script);
+            homeScriptCargado = true;
+        }
+
+        function actualizarVisibilidadCarritoVenta() {
+            const carritoMain = document.getElementById('carrito-main');
+            const autenticado = esVendedorAutenticado();
+
+            if (autenticado) {
+                carritoMain.style.display = 'grid';
+                cargarHomeScriptSiHaceFalta();
+            } else {
+                carritoMain.style.display = 'none';
+            }
+        }
+
+        function configurarAccionesVentaMain() {
+            const btnFinalizar = document.getElementById('btn-finalizar-venta-main');
+            const selectVentaMain = document.getElementById('select-venta-main');
+
+            function cargarSelectorVentasMain() {
+                if (typeof leerCarritosVentas !== 'function' || !selectVentaMain) {
+                    return;
+                }
+
+                const carritos = leerCarritosVentas();
+                const activaId = typeof obtenerVentaActivaId === 'function' ? obtenerVentaActivaId() : null;
+
+                selectVentaMain.innerHTML = '';
+
+                const carrito = carritos[0];
+                if (carrito) {
+                    const option = document.createElement('option');
+                    option.value = carrito.id;
+                    option.textContent = carrito.cliente || 'Cliente 1';
+                    selectVentaMain.appendChild(option);
+                }
+
+                if (activaId) {
+                    selectVentaMain.value = activaId;
+                }
+
+                selectVentaMain.disabled = true;
+            }
+
+            cargarSelectorVentasMain();
+
+            if (btnFinalizar) {
+                btnFinalizar.addEventListener('click', function () {
+                    if (typeof procesarVentaActiva === 'function') {
+                        procesarVentaActiva();
+                        window.location.reload();
+                    } else {
+                        alert('La función de ventas no está disponible todavía.');
+                    }
+                });
+            }
+
+            window.addEventListener('ventas-auth-change', cargarSelectorVentasMain);
+        }
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === AUTH_VENDEDOR_KEY_PAGE) {
+                actualizarVisibilidadCarritoVenta();
+            }
+        });
+
+        window.addEventListener('ventas-auth-change', actualizarVisibilidadCarritoVenta);
+
+        configurarAccionesVentaMain();
+        actualizarVisibilidadCarritoVenta();
+    </script>
+</body>
+</html>
+

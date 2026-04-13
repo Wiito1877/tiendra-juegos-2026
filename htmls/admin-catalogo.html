@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/estilos.css" />
+    <title>Panel Admin | Tienda</title>
+</head>
+<body class="admin-theme">
+    <header>
+        <a href="tienda.html" class="tienda-mini active" aria-current="page">Administrador</a>
+        <h1>Panel de Administracion</h1>
+        <div>
+            <p>Gestion de catalogo de productos</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="admin-catalogo.html" class="active" aria-current="page">Agregar Productos</a></li>
+            <li><a href="gestion-juegos.html">Gestionar Catalogo</a></li>
+            <li><a href="usuarios.html">Gestionar Usuarios</a></li>
+            <li><a href="reportes-ventas.html">Reportes de Ventas</a></li>
+            <li><a href="gestion-ventas.html">Gestionar Ventas</a></li>
+            <li><a href="consultas-admin.html">Gestionar Consultas</a></li>
+        </ul>
+    </nav>
+
+    <main class="admin-manage-main">
+        <article class="admin-manage-actions">
+            <h2>Agregar producto al arreglo</h2>
+            <form id="form-admin-producto" class="formulario-contacto tienda-form">
+                <fieldset>
+                    <legend>Nuevo juego</legend>
+                    <label for="admin-plataforma">Plataforma:</label>
+                    <select id="admin-plataforma" name="plataforma" required>
+                        <option value="">Selecciona plataforma</option>
+                        <option value="PC">PC</option>
+                        <option value="PS4-PS5">PS4-PS5</option>
+                    </select>
+
+                    <label for="admin-nombre">Nombre:</label>
+                    <select id="admin-nombre" name="nombre" required disabled>
+                        <option value="">Selecciona un juego</option>
+                    </select>
+
+                    <label for="admin-precio">Precio (CLP):</label>
+                    <input id="admin-precio" name="precio" type="number" min="0" placeholder="0" required />
+
+                    <label for="admin-cantidad">Cantidad:</label>
+                    <input id="admin-cantidad" name="cantidad" type="number" min="1" step="1" placeholder="10" required />
+                </fieldset>
+                <input type="submit" value="Agregar producto" />
+            </form>
+            <div class="admin-manage-links">
+                <a href="gestion-juegos.html" class="admin-link btn-gestion">Gestionar Catalogo</a>
+                <a href="usuarios.html" class="admin-link btn-gestion">Gestionar Usuarios</a>
+                <a href="reportes-ventas.html" class="admin-link btn-gestion">Reportes de Ventas</a>
+                <a href="gestion-ventas.html" class="admin-link btn-gestion">Gestionar Ventas</a>
+                <a href="consultas-admin.html" class="admin-link btn-gestion">Gestionar Consultas</a>
+            </div>
+            <div class="admin-manage-logout">
+                <button id="btn-logout-admin" class="btn-eliminar" type="button">Cerrar sesion admin</button>
+            </div>
+        </article>
+
+        <article class="admin-manage-content">
+            <h2>Catalogo actual (nombre, valor y cantidad)</h2>
+            <div id="admin-vacio" class="nota">No hay productos en el arreglo.</div>
+            <div id="admin-lista" class="tienda-grid"></div>
+        </article>
+    </main>
+
+    <footer>
+        <p id="parrafo1">Todos los derechos reservados &copy; 2026</p>
+    </footer>
+
+    <script src="../js/global-session.js"></script>
+    <script src="../js/catalogo-juegos.js"></script>
+    <script src="../js/admin-catalogo.js"></script>
+</body>
+</html>
+
